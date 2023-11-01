@@ -44,6 +44,7 @@ async function restoreCache() {
         cacheFileName
       );
       core.info('Attempting to find cache object');
+      core.info(`op data is ${JSON.stringify(op)}`)
       const { item: obj, metadata, matchingKey } = await findObject(
         op,
         key,

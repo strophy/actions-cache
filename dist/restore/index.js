@@ -57966,6 +57966,7 @@ function restoreCache() {
                 const cacheFileName = utils.getCacheFileName(compressionMethod);
                 const archivePath = path.join(yield utils.createTempDirectory(), cacheFileName);
                 core.info('Attempting to find cache object');
+                core.info(`op data is ${JSON.stringify(op)}`);
                 const { item: obj, metadata, matchingKey } = yield utils_1.findObject(op, key, restoreKeys, compressionMethod);
                 core.debug("found cache object");
                 utils_1.saveMatchedKey(matchingKey);
