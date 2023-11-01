@@ -57959,11 +57959,13 @@ function restoreCache() {
             const restoreKeys = utils_1.getInputAsArray("restore-keys");
             try {
                 // Inputs are re-evaluted before the post action, so we want to store the original values
+                core.info('Running try section from test branch');
                 core.saveState(state_1.State.PrimaryKey, key);
                 const op = new opendal_1.Operator(provider, { endpoint, bucket, root });
                 const compressionMethod = yield utils.getCompressionMethod();
                 const cacheFileName = utils.getCacheFileName(compressionMethod);
                 const archivePath = path.join(yield utils.createTempDirectory(), cacheFileName);
+                core.info('Attempting to find cache object');
                 const { item: obj, metadata, matchingKey } = yield utils_1.findObject(op, key, restoreKeys, compressionMethod);
                 core.debug("found cache object");
                 utils_1.saveMatchedKey(matchingKey);
@@ -57993,6 +57995,7 @@ function restoreCache() {
                 core.info(`Cache restored from ${provider} successfully`);
             }
             catch (e) {
+                core.info('Running error section from test branch');
                 core.info(`Restore ${provider} cache failed: ${e}`);
                 utils_1.setCacheHitOutput(false);
                 if (useFallback) {

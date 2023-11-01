@@ -32,6 +32,7 @@ async function restoreCache() {
 
     try {
       // Inputs are re-evaluted before the post action, so we want to store the original values
+      core.info('Running try section from test branch');
       core.saveState(State.PrimaryKey, key);
 
       const op = new Operator(provider, { endpoint, bucket, root });
@@ -42,7 +43,7 @@ async function restoreCache() {
         await utils.createTempDirectory(),
         cacheFileName
       );
-      core.info('Test branch, attempting to find cache object');
+      core.info('Attempting to find cache object');
       const { item: obj, metadata, matchingKey } = await findObject(
         op,
         key,
@@ -81,7 +82,7 @@ async function restoreCache() {
       setCacheHitOutput(matchingKey === key);
       core.info(`Cache restored from ${provider} successfully`);
     } catch (e) {
-      core.info('Running from test branch');
+      core.info('Running error section from test branch');
       core.info(`Restore ${provider} cache failed: ${e}`);
       setCacheHitOutput(false);
       if (useFallback) {
