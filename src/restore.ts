@@ -42,7 +42,7 @@ async function restoreCache() {
         await utils.createTempDirectory(),
         cacheFileName
       );
-
+      core.info('Test branch, attempting to find cache object');
       const { item: obj, metadata, matchingKey } = await findObject(
         op,
         key,
@@ -81,6 +81,7 @@ async function restoreCache() {
       setCacheHitOutput(matchingKey === key);
       core.info(`Cache restored from ${provider} successfully`);
     } catch (e) {
+      core.info('Running from test branch');
       core.info(`Restore ${provider} cache failed: ${e}`);
       setCacheHitOutput(false);
       if (useFallback) {
