@@ -33,8 +33,14 @@ async function saveCache() {
     const paths = getInputAsArray("path");
 
     try {
+      core.info('Running try section from test branch');
+      core.info(`provider is ${provider}`);
+      core.info(`endpoint is ${endpoint}`);
+      core.info(`bucket is ${bucket}`);
+      core.info(`root is ${root}`);
       const op = new Operator(provider, { endpoint, bucket, root });
-
+      core.info('Created op object');
+      core.info(`op is ${JSON.stringify(op)}`);
       const compressionMethod = await utils.getCompressionMethod();
       const cachePaths = await utils.resolvePaths(paths);
       core.debug("Cache Paths:");
