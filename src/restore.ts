@@ -61,8 +61,8 @@ async function restoreCache() {
       core.info(
         `Downloading cache from ${provider} to ${archivePath}. bucket: ${bucket}, root: ${root}, object: ${obj}`
       );
-      let startTimestamp = Date.now();
-      core.debug(`Starting download archive from ${provider} at timestamp ${startTimestamp}`);
+      let startDownloadTimestamp = Date.now();
+      core.debug(`Starting download archive from ${provider} at timestamp ${startDownloadTimestamp}`);
       const req = await op.presignRead(obj, 600);
 
       core.debug(`Presigned request Method: ${req.method}, Url: ${req.url}`);
@@ -77,7 +77,7 @@ async function restoreCache() {
       });
       await fs.promises.writeFile(archivePath, response.data);
       core.debug(`Finished downloading archive from ${provider} at timestamp ${Date.now()}`);
-      core.debug(`Elapsed time: ${(Date.now() - startTimestamp) / 1000}`);
+      core.debug(`Elapsed time: ${(Date.now() - startDownloadTimestamp) / 1000}`);
       if (core.isDebug()) {
         await listTar(archivePath, compressionMethod);
       }
@@ -86,8 +86,11 @@ async function restoreCache() {
         size = Number(metadata.contentLength);
       }
       core.info(`Cache Size: ${formatSize(size)} (${size} bytes)`);
-
+      let startDecompressionTimestamp = Date.now();
+      core.debug(`Starting decompressing at timestamp ${startDecompressionTimestamp}`);
       await extractTar(archivePath, compressionMethod);
+      core.debug(`Finished downloading archive from ${provider} at timestamp ${Date.now()}`);
+      core.debug(`Elapsed time: ${(Date.now() - startDecompressionTimestamp) / 1000}`);
       setCacheHitOutput(matchingKey === key);
       core.info(`Cache restored from ${provider} successfully`);
     } catch (e) {
