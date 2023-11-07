@@ -57977,6 +57977,8 @@ function restoreCache() {
                 core.debug("found cache object");
                 utils_1.saveMatchedKey(matchingKey);
                 core.info(`Downloading cache from ${provider} to ${archivePath}. bucket: ${bucket}, root: ${root}, object: ${obj}`);
+                let startTimestamp = Date.now();
+                core.debug(`Starting download archive from ${provider} at timestamp ${startTimestamp}`);
                 const req = yield op.presignRead(obj, 600);
                 core.debug(`Presigned request Method: ${req.method}, Url: ${req.url}`);
                 for (const key in req.headers) {
@@ -57989,6 +57991,8 @@ function restoreCache() {
                     responseType: "stream",
                 });
                 yield fs.promises.writeFile(archivePath, response.data);
+                core.debug(`Finished downloading archive from ${provider} at timestamp ${Date.now()}`);
+                core.debug(`Elapsed time: ${(Date.now() - startTimestamp) / 1000}`);
                 if (core.isDebug()) {
                     yield tar_1.listTar(archivePath, compressionMethod);
                 }
