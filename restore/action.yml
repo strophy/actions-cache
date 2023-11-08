@@ -1,0 +1,42 @@
+name: "restore cloud cache"
+author: everpcpc
+description: "Actions cache to multiple cloud provider with OpenDAL."
+inputs:
+  provider:
+    description: "Storage provider"
+    required: true
+    default: "s3"
+  endpoint:
+    description: "Storage provider endpoint"
+    required: false
+  bucket:
+    description: "Storage backend bucket"
+    required: true
+  root:
+    description: "Root directory for all cache files"
+    required: false
+    default: ""
+  path:
+    description: "A list of files, directories, and wildcard patterns to cache and restore"
+    required: true
+  key:
+    description: "An explicit key for restoring and saving the cache"
+    required: true
+  restore-keys:
+    description: "An ordered list of keys to use for restoring the cache if no cache hit occurred for key"
+    required: false
+  use-fallback:
+    description: "Use github actions/cache as fallback"
+    required: false
+    default: "false"
+outputs:
+  cache-hit:
+    description: "A boolean value to indicate an exact match was found for the primary key"
+  cache-size:
+    description: "A integer value denoting the size of the cache object found (measured in bytes)"
+runs:
+  using: node16
+  main: "../dist/restore/index.js"
+branding:
+  icon: "archive"
+  color: "gray-dark"
