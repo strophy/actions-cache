@@ -1,0 +1,34 @@
+name: "save cloud cache"
+author: everpcpc
+description: "Actions cache to multiple cloud provider with OpenDAL."
+inputs:
+  provider:
+    description: "Storage provider"
+    required: true
+    default: "s3"
+  endpoint:
+    description: "Storage provider endpoint"
+    required: false
+  bucket:
+    description: "Storage backend bucket"
+    required: true
+  root:
+    description: "Root directory for all cache files"
+    required: false
+    default: ""
+  path:
+    description: "A list of files, directories, and wildcard patterns to cache and restore"
+    required: true
+  key:
+    description: "An explicit key for restoring and saving the cache"
+    required: true
+  use-fallback:
+    description: "Use github actions/cache as fallback"
+    required: false
+    default: "false"
+runs:
+  using: node16
+  main: "../dist/save/index.js"
+branding:
+  icon: "archive"
+  color: "gray-dark"
