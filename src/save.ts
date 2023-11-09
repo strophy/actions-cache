@@ -28,7 +28,8 @@ async function saveCache() {
     const bucket = core.getInput("bucket", { required: true });
     const root = core.getInput("root");
     // Inputs are re-evaluted before the post action, so we want the original key
-    const key = core.getState(State.PrimaryKey);
+    // or get it from inputs in case if save was called directly
+    const key = core.getState(State.PrimaryKey) || core.getInput("key", { required: true });
     const useFallback = getInputAsBoolean("use-fallback");
     const paths = getInputAsArray("path");
 
