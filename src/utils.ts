@@ -151,7 +151,7 @@ function getMatchedKey() {
 export function isExactKeyMatch(): boolean {
   const matchedKey = getMatchedKey();
   const inputKey = core.getState(State.PrimaryKey);
-  const result = getMatchedKey() === inputKey;
+  const result = inputKey !== '' && getMatchedKey() === inputKey;
   core.debug(
     `isExactKeyMatch: matchedKey=${matchedKey} inputKey=${inputKey}, result=${result}`
   );
