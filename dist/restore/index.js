@@ -9864,13 +9864,7 @@ exports.implementation = class URLImpl {
 
 /***/ }),
 /* 257 */,
-/* 258 */
-/***/ (function(module) {
-
-module.exports = eval("require")("./opendal.linux-arm64-gnu.node");
-
-
-/***/ }),
+/* 258 */,
 /* 259 */,
 /* 260 */,
 /* 261 */,
@@ -44750,11 +44744,11 @@ switch (platform) {
           }
         } else {
           localFileExisted = existsSync(
-            join(__dirname, 'opendal.linux-arm64-gnu.node')
+            __webpack_require__.ab + "/opendal.linux-arm64-gnu.node"
           )
           try {
             if (localFileExisted) {
-              nativeBinding = __webpack_require__(258)
+              nativeBinding = __webpack_require__(930)
             } else {
               nativeBinding = __webpack_require__(807)
             }
@@ -66988,7 +66982,12 @@ exports.setLogLevel = setLogLevel;
 
 /***/ }),
 /* 929 */,
-/* 930 */,
+/* 930 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+module.exports = require(__webpack_require__.ab + "opendal.linux-arm64-gnu.node")
+
+/***/ }),
 /* 931 */
 /***/ (function(__unusedmodule, exports) {
 
